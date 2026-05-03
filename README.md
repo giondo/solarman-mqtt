@@ -337,3 +337,5 @@ template:
       state_class: measurement
 
 ```
+
+All Credits go to [Hareeshmu](https://github.com/hareeshmu) for the initial implementation of this add-on.
