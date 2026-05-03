@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Home Assistant add-on: Solarman MQTT Bridge
 # Entry point that converts Home Assistant add-on options to config and starts the service
 
@@ -15,7 +15,7 @@ log() {
 log "Starting Solarman MQTT Bridge..."
 
 # Check if options file exists and convert to config.json
-if [[ -f "$OPTIONS_FILE" ]]; then
+if [ -f "$OPTIONS_FILE" ]; then
     log "Converting Home Assistant options to config.json..."
     python3 << 'EOF'
 import json
@@ -65,7 +65,7 @@ except Exception as e:
 EOF
 else
     log "No options file found. Using existing config.json or creating a template..."
-    if [[ ! -f "$CONFIG_FILE" ]]; then
+    if [ ! -f "$CONFIG_FILE" ]; then
         log "Creating sample config.json - please update with your credentials"
         mkdir -p /config
         cat > "$CONFIG_FILE" << 'SAMPLE'
