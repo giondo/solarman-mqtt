@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Validate addon.json structure
+      - name: Validate config.json structure
         run: |
-          echo "✓ Checking addon.json..."
-          python3 -m json.tool addon.json > /dev/null
-          echo "✓ addon.json is valid JSON"
+          echo "✓ Checking config.json..."
+          python3 -m json.tool config.json > /dev/null
+          echo "✓ config.json is valid JSON"
       
       - name: Validate repository.json
         run: |
