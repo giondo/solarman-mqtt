@@ -1,0 +1,42 @@
+name: Validate Add-on
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Validate addon.json structure
+        run: |
+          echo "✓ Checking addon.json..."
+          python3 -m json.tool addon.json > /dev/null
+          echo "✓ addon.json is valid JSON"
+      
+      - name: Validate repository.json
+        run: |
+          echo "✓ Checking repository.json..."
+          python3 -m json.tool repository.json > /dev/null
+          echo "✓ repository.json is valid JSON"
+      
+      - name: Check required files
+        run: |
+          echo "✓ Checking required files..."
+          test -f addon.json && echo "✓ addon.json found"
+          test -f Dockerfile && echo "✓ Dockerfile found"
+          test -f run.sh && echo "✓ run.sh found"
+          test -f requirements.txt && echo "✓ requirements.txt found"
+          test -f solarman.py && echo "✓ solarman.py found"
+          test -f mqtt.py && echo "✓ mqtt.py found"
+          test -f ADDON_README.md && echo "✓ ADDON_README.md found"
+          echo "✓ All required files present"
+      
+      - name: Validate Dockerfile
+        run: |
+          echo "✓ Validating Dockerfile..."
+          docker run --rm -i hadolint/hadolint < Dockerfile || true

@@ -1,0 +1,63 @@
+{
+  "name": "Solarman MQTT Bridge",
+  "version": "1.0.0",
+  "slug": "solarman-mqtt",
+  "description": "Solarman to MQTT bridge - Retrieve Solar PV data from Solarman API and publish to MQTT broker",
+  "url": "https://github.com/hareeshmu/solarman",
+  "startup": "services",
+  "boot": "auto",
+  "host_network": true,
+  "arch": ["amd64", "armv7", "aarch64"],
+  "ports": {},
+  "ports_description": {},
+  "environment": {},
+  "map": ["config:rw"],
+  "options": {
+    "solarman": {
+      "api_url": "api.solarmanpv.com",
+      "appid": "your_appid_here",
+      "secret": "your_secret_here",
+      "username": "your_email@example.com",
+      "password": "your_password",
+      "orgId": "",
+      "stationId": 0,
+      "inverterId": "",
+      "loggerId": 0,
+      "interval": 300,
+      "debug": false
+    },
+    "mqtt": {
+      "broker": "core-mosquitto",
+      "port": 1883,
+      "topic": "solarmanpv",
+      "username": "mqtt_user",
+      "password": "mqtt_password"
+    }
+  },
+  "schema": {
+    "solarman": {
+      "api_url": "str",
+      "appid": "str",
+      "secret": "str",
+      "username": "str",
+      "password": "password",
+      "orgId": "str?",
+      "stationId": "int",
+      "inverterId": "str?",
+      "loggerId": "int?",
+      "interval": "int(60,3600)",
+      "debug": "bool"
+    },
+    "mqtt": {
+      "broker": "str",
+      "port": "port",
+      "topic": "str",
+      "username": "str",
+      "password": "password"
+    }
+  },
+  "requirements": ["python310"],
+  "privileged": [
+    "NET_ADMIN"
+  ]
+}

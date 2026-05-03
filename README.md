@@ -1,39 +1,71 @@
-# ⚡ solarman
+# ⚡ Solarman MQTT Bridge - Home Assistant Add-on
 
-![Solarman Workflow](https://github.com/hareeshmu/solarman/actions/workflows/image.yml/badge.svg)  [![solarman docker image size](https://img.shields.io/docker/image-size/hareeshmu/solarman?style=flat-square)](https://hub.docker.com/r/hareeshmu/solarman "solarman docker image size")  [![Total DockerHub pulls](https://img.shields.io/docker/pulls/hareeshmu/solarman?style=flat-square)](https://hub.docker.com/r/hareeshmu/solarman "Total DockerHub pulls")
+[![Validate Add-on](https://github.com/giondo/solarman-mqtt/actions/workflows/validate.yml/badge.svg)](https://github.com/giondo/solarman-mqtt/actions)
 
-Script to retrieve current Solar PV data from the Solarman API, and send Power (W) and Energy (kWh) metrics to a MQTT broker, for further use in home automation. Several PV vendors use the Solarman Smart platform for statistics, like sofar inverter with logger.
+A **Home Assistant Add-on** that retrieves current Solar PV data from the Solarman API and publishes Power (W) and Energy (kWh) metrics to an MQTT broker for home automation. Perfect for integrating solar inverters using the Solarman Smart platform (like Sofar inverters with logger) into Home Assistant.
 
-```lang=bash
-usage: solarman.py [--repeat]
+## 🚀 Quick Installation
 
-Collect data from Solarman API
+### Home Assistant Add-on Store (Recommended)
 
-optional arguments:
---repeat                       Repeat at every interval defined in the config
+1. In Home Assistant, go to **Settings → Add-ons & shortcuts → Add-on Store**
+2. Click the three dots menu (⋮) in the top right
+3. Select **Repositories**
+4. Paste this repository URL:
+   ```
+   https://github.com/giondo/solarman-mqtt
+   ```
+5. Click **Create**
+6. Close the dialog and return to the Add-on Store
+7. 📖 Configuration
+
+The add-on provides a web UI for configuration in Home Assistant. Configure:
+
+- **Solarman API Settings**:
+  - API URL (default: `api.solarmanpv.com`)
+  - AppID and Secret
+  - Username (email) and password
+  - Station ID and Device IDs
+  - Polling interval (seconds, default: 300)
+
+- **MQTT Settings**:
+  - Broker address (default: `core-mosquitto` for built-in)
+  - Port (default: 1883)
+  - Topic prefix (default: `solarmanpv`)
+  - MQTT username and password
+
+See [ADDON_README.md](ADDON_README.md) for detailed configuration options.
+
+## 🔧 Advanced: Manual Docker Usage
+
+Supported platforms: `linux/amd64`, `linux/386`, `linux/arm/v7`, `linux/arm/v6`, `linux/arm64`
+
+### Docker Example
+
+```bash
+# Clone and setup
+git clone https://github.com/giondo/solarman-mqtt
+cd solarman-mqtt
+cp config.sample.json config.json
+# Edit config.json with your credentials
+
+# Run with Docker
+docker run -d \
+  --name solarman \
+  --restart unless-stopped \
+  -v $(pwd)/config.json:/config/config.json \
+  giondo/solarman-mqtt:latest
 ```
 
-## Usage
+### Docker Compose
 
-You can run this script as a Docker container or in Python 3. Either way a configuration file is required. See the sample `config.sample.json` file in this repository for reference. Also, a Solarman API appid and secret is required, which can be requested via <mailto:service@solarmanpv.com>.
-
-### Using Docker
-
-Supported platforms:
-
-* linux/amd64
-* linux/386
-* linux/arm/v7
-* linux/arm/v6
-* linux/arm64
-
-Docker example to run this script every 5 minutes and providing a config file:
-
-```lang=bash
-cd /opt
-git clone https://github.com/hareeshmu/solarman
-cd solarman
-mv config.sample.json config.json # setup your config
+```yaml
+version: "3.7"
+services:
+  solarman:
+    image: giondo/solarman-mqtt:latest
+    container_name: solarman
+    restart: unless-stopped.json # setup your config
 sudo docker run --name solarman -d --restart unless-stopped -v /YOUR/PATH/HERE/config.json:/config.json hareeshmu/solarman:latest
 ```
 

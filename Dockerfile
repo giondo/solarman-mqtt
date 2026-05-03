@@ -1,18 +1,21 @@
-# ---- Base ----
-FROM python:alpine AS base
+# Home Assistant add-on: Solarman MQTT Bridge
+FROM python:3.10-alpine
 
-#
-# ---- Dependencies ----
-FROM base AS dependencies
-# install dependencies
+# Install Python requirements
 COPY requirements.txt .
-RUN pip install -r requirements.txt
- 
-#
-# ---- Release ----
-FROM dependencies AS release
-# copy project source file(s)
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application files
 WORKDIR /
 COPY solarman.py .
 COPY mqtt.py .
-CMD ["python", "-u", "/solarman.py", "--repeat"]
+COPY run.sh .
+
+# Make startup script executable
+RUN chmod +x /run.sh
+
+# Set environment
+ENV CONFIG_PATH=/config/
+
+# Run the startup script
+CMD ["/run.sh"]

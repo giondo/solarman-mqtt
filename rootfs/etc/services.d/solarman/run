@@ -1,0 +1,4 @@
+#!/command/execlineb -P
+# Start Solarman MQTT service
+foreground { s6-setuidgid 0:0 }
+/solarman.py --repeat
