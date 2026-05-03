@@ -1,17 +1,23 @@
 {
-  "name": "Solarman MQTT Bridge",
+  "name": "Solarman MQTT API Bridge",
   "version": "1.0.0",
   "slug": "solarman-mqtt",
-  "description": "Solarman to MQTT bridge - Retrieve Solar PV data from Solarman API and publish to MQTT broker",
+  "description": "Solarman API to MQTT bridge - Retrieve Solar PV data from Solarman API and publish to MQTT broker",
   "url": "https://github.com/hareeshmu/solarman",
   "startup": "services",
   "boot": "auto",
   "host_network": true,
-  "arch": ["amd64", "armv7", "aarch64"],
+  "arch": [
+    "amd64",
+    "armv7",
+    "aarch64"
+  ],
   "ports": {},
   "ports_description": {},
   "environment": {},
-  "map": ["config:rw"],
+  "map": [
+    "config:rw"
+  ],
   "options": {
     "solarman": {
       "api_url": "api.solarmanpv.com",
@@ -56,7 +62,9 @@
       "password": "password"
     }
   },
-  "requirements": ["python310"],
+  "requirements": [
+    "python310"
+  ],
   "privileged": [
     "NET_ADMIN"
   ]
