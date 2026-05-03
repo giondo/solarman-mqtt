@@ -15,7 +15,7 @@ jobs:
       - name: Validate config.json structure
         run: |
           echo "✓ Checking config.json..."
-          python3 -m json.tool config.json > /dev/null
+          python3 -m json.tool solarman-mqtt/config.json > /dev/null
           echo "✓ config.json is valid JSON"
       
       - name: Validate repository.json
