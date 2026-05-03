@@ -18,11 +18,11 @@ jobs:
           python3 -m json.tool solarman-mqtt/config.json > /dev/null
           echo "✓ config.json is valid JSON"
       
-      - name: Validate repository.json
+      - name: Validate repository.yaml
         run: |
-          echo "✓ Checking repository.json..."
-          python3 -m json.tool repository.json > /dev/null
-          echo "✓ repository.json is valid JSON"
+          echo "✓ Checking repository.yaml..."
+          yq '.' repository.yaml > /dev/null
+          echo "✓ repository.yaml is valid YAML"
       
       - name: Check required files
         run: |
