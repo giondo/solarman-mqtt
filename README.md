@@ -338,4 +338,4 @@ template:
 
 ```
 
-All Credits go to [Hareeshmu](https://github.com/hareeshmu) for the initial implementation of this add-on.
+All Credits go to [Hareeshmu](https://github.com/hareeshmu) for the initial implementation of this app.
