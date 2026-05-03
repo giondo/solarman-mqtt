@@ -1,8 +1,8 @@
-# ⚡ Solarman MQTT Bridge - Home Assistant Add-on
+# ⚡ Solarman MQTT Bridge - Home Assistant App
 
 [![Validate Add-on](https://github.com/giondo/solarman-mqtt/actions/workflows/validate.yml/badge.svg)](https://github.com/giondo/solarman-mqtt/actions)
 
-A **Home Assistant Add-on** that retrieves current Solar PV data from the Solarman API and publishes Power (W) and Energy (kWh) metrics to an MQTT broker for home automation. Perfect for integrating solar inverters using the Solarman Smart platform (like Sofar inverters with logger) into Home Assistant.
+A **Home Assistant App** that retrieves current Solar PV data from the Solarman API and publishes Power (W) and Energy (kWh) metrics to an MQTT broker for home automation. Perfect for integrating solar inverters using the Solarman Smart platform (like Sofar inverters with logger) into Home Assistant.
 
 ## 🚀 Quick Installation
 
