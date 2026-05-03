@@ -6,18 +6,25 @@ A **Home Assistant Add-on** that retrieves current Solar PV data from the Solarm
 
 ## 🚀 Quick Installation
 
-### Home Assistant Add-on Store (Recommended)
+### Home Assistant App Store add repo (Recommended)
 
-1. In Home Assistant, go to **Settings → Add-ons & shortcuts → Add-on Store**
+1. In Home Assistant, go to **Settings → Apps → Install APP**
 2. Click the three dots menu (⋮) in the top right
 3. Select **Repositories**
-4. Paste this repository URL:
+4. Click the **Add** button
+5. Paste this repository URL:
    ```
    https://github.com/giondo/solarman-mqtt
    ```
-5. Click **Create**
-6. Close the dialog and return to the Add-on Store
-7. 📖 Configuration
+6. Click **Add**
+7. Close the dialog and return to the App Store
+8. 📖 Configuration
+
+### Home Assistant App Store install App (Recommended)
+
+1. In Home Assistant, go to **Settings → Apps → Install APP**
+2. Select Solarman MQTT Bridge
+3. Click on Install
 
 The add-on provides a web UI for configuration in Home Assistant. Configure:
 
