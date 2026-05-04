@@ -62,11 +62,11 @@ def get_token(url, appid, secret, username, password, orgId=None):
         res = conn.getresponse()
         data = json.loads(res.read())
         
-        if "access_token" in data:
+        if data.get("access_token"):
             print(f"{time_stamp()}: 🔥 Token received successfully")
             return data["access_token"]
         else:
-            print(f"{time_stamp()}: 😡 API did not return an access_token. Response: {data}")
+            print(f"{time_stamp()}: 😡 API did not return a valid access_token. Response: {data}")
             return None
     except Exception as error:  # pylint: disable=broad-except
         print(f"{time_stamp()}: 😡 Unable to fetch token: {type(error).__name__} - {str(error)}")
@@ -231,6 +231,13 @@ if __name__ == "__main__":
     if os.path.exists(config_file):
         config = load_config(config_file)
         interval = config.get("interval", 300)
+        
+        # Enforce minimum interval to respect API limit (50 calls/min)
+        # One run makes 4 API calls, so 60s is very safe (4 calls/min).
+        if interval < 60:
+            print(f"{time_stamp()}: ⚠️  Configured interval ({interval}s) is too short and risks hitting the 50 calls/min API limit. Overriding to 60 seconds.")
+            interval = 60
+            
         if(len(sys.argv) > 1):
             if(sys.argv[1] == "--repeat"):
                 while True:     
