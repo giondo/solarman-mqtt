@@ -117,6 +117,17 @@ except Exception as e:
     sys.exit(1)
 VERIFY
 
+# Check if debug mode is enabled and run test script if so
+if [ -f "$CONFIG_FILE" ]; then
+    DEBUG_MODE=$(jq -r '.debug' "$CONFIG_FILE" 2>/dev/null || echo "false")
+    if [ "$DEBUG_MODE" = "true" ] || [ "$DEBUG_MODE" = "True" ]; then
+        log "Debug mode enabled. Running API connection test..."
+        export CONFIG_PATH=/config/
+        /test-solarmanapi.sh || log "API connection test returned an error."
+        log "API connection test completed."
+    fi
+fi
+
 # Start the Solarman application
 log "Starting Solarman application..."
 export CONFIG_PATH=/config/
