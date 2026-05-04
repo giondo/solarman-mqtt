@@ -226,6 +226,6 @@ Method_Of_Protocol_Upgrade: 255
 
 ### Yaml configuration in your Home assistant
 
-please refer to the [configuration.yaml](configuration.yaml) file for the configuration of the Home Assistant integration.
+please refer to the [configuration.yaml](ha-yaml/configuration.yaml) file for the configuration of the Home Assistant integration.
 
 All Credits go to [Hareeshmu](https://github.com/hareeshmu) for the initial implementation of this App.
