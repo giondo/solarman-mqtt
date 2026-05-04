@@ -57,7 +57,7 @@ def get_token(url, appid, secret, username, password, orgId=None):
         else:
             payload = json.dumps({"appSecret": secret, "email": username, "password": passhash})
         headers = {"Content-Type": "application/json"}
-        url = f"//account/v1.0/token?appId={appid}&language=en"
+        url = f"/account/v1.0/token?appId={appid}&language=en"
         conn.request("POST", url, payload, headers)
         res = conn.getresponse()
         data = json.loads(res.read())
@@ -83,7 +83,7 @@ def get_station_realtime(url, stationid, token):
         conn = http.client.HTTPSConnection(url)
         payload = json.dumps({"stationId": stationid})
         headers = {"Content-Type": "application/json", "Authorization": "bearer " + token}
-        conn.request("POST", "//station/v1.0/realTime?language=en", payload, headers)
+        conn.request("POST", "/station/v1.0/realTime?language=en", payload, headers)
         res = conn.getresponse()
         data = json.loads(res.read())
         print(f"{time_stamp()}: 🔥 Station realtime data received successfully")
@@ -103,7 +103,7 @@ def get_device_current_data(url, device_sn, token):
         conn = http.client.HTTPSConnection(url)
         payload = json.dumps({"deviceSn": device_sn})
         headers = {"Content-Type": "application/json", "Authorization": "bearer " + token}
-        conn.request("POST", "//device/v1.0/currentData?language=en", payload, headers)
+        conn.request("POST", "/device/v1.0/currentData?language=en", payload, headers)
         res = conn.getresponse()
         data = json.loads(res.read())
         print(f"{time_stamp()}: 🔥 Device data received successfully")
