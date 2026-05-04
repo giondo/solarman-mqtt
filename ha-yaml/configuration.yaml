@@ -1,0 +1,9 @@
+# this is your configuration.yaml file, you can find more details about it here:
+# https://www.home-assistant.io/docs/configuration/
+
+# You have to include these two extra lines for be able to see the metrics in your home assistant dashboard
+
+
+# For mqtt integration with solarman
+mqtt: !include mqtt.yaml
+template: !include templates.yaml
