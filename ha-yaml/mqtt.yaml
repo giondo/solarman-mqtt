@@ -1,0 +1,19 @@
+# mqtt.yaml
+
+sensor:
+  # Station Topics
+  - name: "SolarmanPV Station Generation Power"
+    state_topic: "solarmanpv/station/generationPower"
+    unit_of_measurement: "W"
+    state_class: measurement
+    device_class: power
+
+  # Inverter Base Sensor (Carries the attributes)
+  - name: "SolarmanPV Inverter"
+    state_topic: "solarmanpv/inverter/deviceState"
+    json_attributes_topic: "solarmanpv/inverter/attributes"
+
+  # Logger Base Sensor (Carries the attributes)
+  - name: "SolarmanPV Logger"
+    state_topic: "solarmanpv/logger/deviceState"
+    json_attributes_topic: "solarmanpv/logger/attributes"
