@@ -61,10 +61,15 @@ def get_token(url, appid, secret, username, password, orgId=None):
         conn.request("POST", url, payload, headers)
         res = conn.getresponse()
         data = json.loads(res.read())
-        print(f"{time_stamp()}: 🔥 Token received successfully")
-        return data["access_token"]
+        
+        if "access_token" in data:
+            print(f"{time_stamp()}: 🔥 Token received successfully")
+            return data["access_token"]
+        else:
+            print(f"{time_stamp()}: 😡 API did not return an access_token. Response: {data}")
+            return None
     except Exception as error:  # pylint: disable=broad-except
-        print(f"{time_stamp()}: 😡 Unable to fetch token: {str(error)}")
+        print(f"{time_stamp()}: 😡 Unable to fetch token: {type(error).__name__} - {str(error)}")
         return None
 
 
