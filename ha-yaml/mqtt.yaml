@@ -8,6 +8,12 @@ sensor:
     state_class: measurement
     device_class: power
 
+  - name: "SolarmanPV Station Generation Total"
+    state_topic: "solarmanpv/station/generationTotal"
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: total_increasing
+
   # Inverter Base Sensor (Carries the attributes)
   - name: "SolarmanPV Inverter"
     state_topic: "solarmanpv/inverter/deviceState"
