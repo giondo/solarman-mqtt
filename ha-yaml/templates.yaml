@@ -3,39 +3,62 @@
 - sensor:
     # State Mapping for Inverter
     - name: "SolarmanPV Inverter Device State"
+      unique_id: "solarmanpv_inverter_status"
       state: >-
         {% set mapper = {'1': 'Online', '2': 'Failure', '3': 'Offline'} %}
         {% set val = states('sensor.solarmanpv_inverter') %}
-        {{ mapper.get(val, 'Unknown') }}
+        {{ mapper.get(val, 'Offline') }}
 
     # State Mapping for Logger
     - name: "SolarmanPV Logger Device State"
+      unique_id: "solarmanpv_logger_status"
       state: >-
         {% set mapper = {'1': 'Online', '2': 'Failure', '3': 'Offline'} %}
         {% set val = states('sensor.solarmanpv_logger') %}
-        {{ mapper.get(val, 'Unknown') }}
+        {{ mapper.get(val, 'Offline') }}
 
     # Individual Inverter Metrics from Attributes
     - name: "SolarmanPV Inverter DC Voltage PV1"
+      unique_id: "solarmanpv_dc_voltage_pv1"
       unit_of_measurement: "V"
       device_class: voltage
-      state: "{{ state_attr('sensor.solarmanpv_inverter', 'DC_Voltage_PV1') }}"
       state_class: measurement
+      state: >-
+        {% set val = state_attr('sensor.solarmanpv_inverter', 'DC_Voltage_PV1') %}
+        {{ val if is_number(val) else 'unavailable' }}
+      availability: >-
+        {{ is_number(state_attr('sensor.solarmanpv_inverter', 'DC_Voltage_PV1')) }}
 
     - name: "SolarmanPV Inverter DC Current PV1"
+      unique_id: "solarmanpv_dc_current_pv1"
       unit_of_measurement: "A"
       device_class: current
-      state: "{{ state_attr('sensor.solarmanpv_inverter', 'DC_Current_PV1') }}"
       state_class: measurement
+      state: >-
+        {% set val = state_attr('sensor.solarmanpv_inverter', 'DC_Current_PV1') %}
+        {{ val if is_number(val) else 'unavailable' }}
+      availability: >-
+        {{ is_number(state_attr('sensor.solarmanpv_inverter', 'DC_Current_PV1')) }}
 
-    - name: "SolarmanPV Inverter Total Production 1"
-      unit_of_measurement: "kWh"
-      device_class: energy
-      state: "{{ state_attr('sensor.solarmanpv_inverter', 'Total_Production_1') }}"
-      state_class: total_increasing
-
-    - name: "SolarmanPV Inverter AC Radiator Temp"
+    - name: "SolarmanPV Inverter AC Temperature"
+      unique_id: "solarmanpv_inverter_temp_r"
       unit_of_measurement: "°C"
       device_class: temperature
-      state: "{{ state_attr('sensor.solarmanpv_inverter', 'AC_Radiator_Temp') }}"
       state_class: measurement
+      state: >-
+        {% set val = state_attr('sensor.solarmanpv_inverter', 'Inverter_Temperature_R') %}
+        {{ val if is_number(val) else 'unavailable' }}
+      availability: >-
+        {{ is_number(state_attr('sensor.solarmanpv_inverter', 'Inverter_Temperature_R')) }}
+
+    # FIXED: Energy Sensor for Energy Dashboard
+    - name: "SolarmanPV Inverter Total Production"
+      unique_id: "solarmanpv_total_production_primary"
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
+      state: >-
+        {% set val = state_attr('sensor.solarmanpv_inverter', 'Cumulative_Production_(Active)') %}
+        {{ val if is_number(val) else 'unavailable' }}
+      availability: >-
+        {{ is_number(state_attr('sensor.solarmanpv_inverter', 'Cumulative_Production_(Active)')) }}

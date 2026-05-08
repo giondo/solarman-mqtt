@@ -1,7 +1,7 @@
 # mqtt.yaml
 
 sensor:
-  # Station Topics
+  # Station Topics - Real-time Power
   - name: "SolarmanPV Station Generation Power"
     state_topic: "solarmanpv/station/generationPower"
     unit_of_measurement: "W"
