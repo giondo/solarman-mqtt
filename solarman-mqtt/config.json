@@ -7,14 +7,25 @@
   "startup": "services",
   "boot": "auto",
   "host_network": true,
+  "watchdog": "http://[HOST]:8099/health",
   "arch": [
     "amd64",
     "armv7",
     "aarch64"
   ],
-  "ports": {},
-  "ports_description": {},
-  "environment": {},
+  "ports": {
+    "8099/tcp": null
+  },
+  "ports_description": {
+    "8099/tcp": "Health endpoint for Home Assistant watchdog"
+  },
+  "environment": {
+    "SOLARMAN_HEALTH_PORT": "8099",
+    "SOLARMAN_REQUEST_TIMEOUT": "30",
+    "SOLARMAN_MQTT_TIMEOUT": "30",
+    "SOLARMAN_CURL_MAX_TIME": "30",
+    "SOLARMAN_HEALTH_STALE_SECONDS": "900"
+  },
   "map": [
     "config:rw"
   ],

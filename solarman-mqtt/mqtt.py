@@ -3,9 +3,12 @@ MQTT connect and publish
 """
 
 import logging
+import os
 import random
 import time
 from paho.mqtt import client as mqtt_client
+
+MQTT_TIMEOUT = int(os.environ.get("SOLARMAN_MQTT_TIMEOUT", "30"))
 
 def time_stamp():
     """
@@ -14,7 +17,7 @@ def time_stamp():
     """
     return time.strftime("%Y-%m-%d %H:%M:%S")
 
-def connect_mqtt(broker, port, username, password):
+def connect_mqtt(broker, port, username, password, timeout=MQTT_TIMEOUT):
     """
     Create an MQTT connection
     :param broker: MQTT broker
@@ -26,8 +29,10 @@ def connect_mqtt(broker, port, username, password):
     print(f"{time_stamp()}: 🔥 Connecting mqtt: {broker} on port: {port} as user: {username}")
     client_id = f'solarman-{random.randint(0, 1000)}'
     client = mqtt_client.Client(client_id)
+    if hasattr(client, "_connect_timeout"):
+        client._connect_timeout = timeout
     client.username_pw_set(username, password)
-    client.connect(broker, port)
+    client.connect(broker, port, keepalive=60)
     return client
 
 
@@ -59,5 +64,6 @@ def message(config, topic, msg, debug):
     try:
         client = connect_mqtt(config["broker"], config["port"], config["username"], config["password"])
         publish(client, topic, msg, debug)
+        client.disconnect()
     except Exception as error:  # pylint: disable=broad-except
         print(f"{time_stamp()}: 😡 Unable to connect mqtt: {str(error)}")

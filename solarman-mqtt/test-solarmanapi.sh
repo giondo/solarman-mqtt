@@ -2,6 +2,7 @@
 set -e
 
 CONFIG_FILE="${CONFIG_PATH:-./}config.json"
+CURL_MAX_TIME="${SOLARMAN_CURL_MAX_TIME:-30}"
 
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "Error: Configuration file '$CONFIG_FILE' not found."
@@ -27,7 +28,7 @@ HASHED_PASSWORD=$(echo -n "$PASSWORD" | sha256sum | awk '{print $1}')
 echo "Fetching access token from ${API_URL}..."
 
 # Request access token
-TOKEN_RESPONSE=$(curl -s --request POST \
+TOKEN_RESPONSE=$(curl -s --fail --max-time "$CURL_MAX_TIME" --request POST \
   --url "https://${API_URL}/account/v1.0/token?appId=${APP_ID}&language=en" \
   --header 'Content-Type: application/json' \
   --data '{
@@ -47,7 +48,7 @@ fi
 echo "Access token obtained successfully. Fetching station list..."
 
 # Request station list using the obtained token
-curl -s --request POST \
+curl -s --fail --max-time "$CURL_MAX_TIME" --request POST \
   --url "https://${API_URL}/station/v1.0/list" \
   --header "Authorization: bearer ${ACCESS_TOKEN}" \
   --header 'Content-Type: application/json' \
