@@ -62,3 +62,10 @@
         {{ val if is_number(val) else 'unavailable' }}
       availability: >-
         {{ is_number(state_attr('sensor.solarmanpv_inverter', 'Cumulative_Production_(Active)')) }}
+
+    - name: "SolarmanPV AC Voltage Phase R"
+      unit_of_measurement: "V"
+      device_class: voltage
+      state_class: measurement
+      # We use bracket notation to access the key with special characters
+      state: "{{ state_attr('sensor.solarmanpv_inverter', 'AC_Voltage_R/U/A') | float(0) }}"
