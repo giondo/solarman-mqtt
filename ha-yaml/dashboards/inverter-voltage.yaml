@@ -1,0 +1,13 @@
+type: vertical-stack
+cards:
+  - type: glance
+    title: Inverter Status
+    entities:
+      - entity: sensor.solarmanpv_inverter_device_state
+      - entity: sensor.solarmanpv_ac_voltage_phase_r
+        name: Voltage R
+  - type: history-graph
+    title: AC Voltage Phase R History
+    hours_to_show: 24
+    entities:
+      - entity: sensor.solarmanpv_ac_voltage_phase_r
