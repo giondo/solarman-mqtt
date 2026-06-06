@@ -63,6 +63,7 @@
       availability: >-
         {{ is_number(state_attr('sensor.solarmanpv_inverter', 'Cumulative_Production_(Active)')) }}
 
+
     - name: "SolarmanPV AC Voltage Phase R"
       unit_of_measurement: "V"
       device_class: voltage

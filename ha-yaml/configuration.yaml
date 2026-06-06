@@ -7,3 +7,4 @@
 # For mqtt integration with solarman
 mqtt: !include mqtt.yaml
 template: !include templates.yaml
+rest: !include api_rest.yaml

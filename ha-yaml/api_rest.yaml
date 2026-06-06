@@ -1,0 +1,44 @@
+## api_rest.yaml
+- authentication: basic
+  scan_interval: 10 # Lower has more resolution, but voltage is a bit 'noisy' so it fills your database fast. Be careful.
+  resource: http://192.168.103.14/api/v1/telegram
+  sensor:
+    #### Current Amp #####
+    - name: "P1 Current L1"
+      device_class: current
+      unique_id: p1_hw_current_l1 # It does not matter what is added here, but it has to be unique.
+      state_class: measurement
+      unit_of_measurement: A
+      value_template: "{{ (value|regex_findall_index('1\\-0\\:31\\.7\\.0\\([0-9.]*')).split('(',1)[-1].strip() | float }}"
+#    - name: "P1 Current L2"
+#      device_class: current
+#      unique_id: p1_hw_current_l2
+#      state_class: measurement
+#      unit_of_measurement: A
+#      value_template: "{{ (value|regex_findall_index('1\\-0\\:51\\.7\\.0\\([0-9.]*')).split('(',1)[-1].strip() | float }}"
+#    - name: "P1 Current L3"
+#      device_class: current
+#      unique_id: p1_hw_current_l3
+#      state_class: measurement
+#      unit_of_measurement: A
+#      value_template: "{{ (value|regex_findall_index('1\\-0\\:71\\.7\\.0\\([0-9.]*')).split('(',1)[-1].strip() | float }}"
+  #### Voltage #######
+    - name: "P1 Voltage L1"
+      device_class: voltage
+      unique_id: p1_hw_volt_l1 # It does not matter what is added here, but it has to be unique.
+      state_class: measurement
+      unit_of_measurement: V
+      value_template: "{{ (value|regex_findall_index('1\\-0\\:32\\.7\\.0\\([0-9.]*')).split('(',1)[-1].strip() | float }}"
+#   # Optional, if you have a 3-phase meter:
+#    - name: "P1 Voltage L2"
+#      device_class: voltage
+#      unique_id: <something_random_or_serial_i >_volt_l2
+#      state_class: measurement
+#      unit_of_measurement: V
+#      value_template: "{{ (value|regex_findall_index('1\\-0\\:52\\.7\\.0\\([0-9.]*')).split('(',1)[-1].strip() | float }}"
+#   - name: "P1 Voltage L3"
+#      device_class: voltage
+#      unique_id: <something_random_or_serial_id>_volt_l3
+#      state_class: measurement
+#      unit_of_measurement: V
+#      value_template: "{{ (value|regex_findall_index('1\\-0\\:72\\.7\\.0\\([0-9.]*')).split('(',1)[-1].strip() | float }}"
